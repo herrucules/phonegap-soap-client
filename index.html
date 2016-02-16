@@ -40,6 +40,8 @@
         );
 
       soapBody = $.trim(soapBody);
+      alert(soapBody);
+      output.val(soapBody);
 
       $.ajax({
         type: "POST",
@@ -53,7 +55,8 @@
           output.val(response);
         },
         error: function() {
-          console.log("ERROR", arguments);
+          // console.log("ERROR", arguments);
+          alert("error");
         }
       });
     });
