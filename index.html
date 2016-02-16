@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>An awesome app</title>
+</head>
+<body>
+  <h1>Input your number:</h1>  
+  <p><input type="number" id="input"></p>
+  <p><button id="encrypt">Encrypt!</button></p>
+  <textarea name="" id="output" cols="30" rows="10"></textarea>
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <?xml version="1.0" encoding="utf-8"?>
+    <script id="soap-template" type="application/soap-template">
+        <soap:envelope
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+
+        <soap:body>
+
+            <SimpleHash.EncodeRequest xmlns="http://www.webserviceX.NET">
+                <string>${input}</string>
+            </SimpleHash.EncodeRequest>
+
+        </soap:body>
+
+    </soap:envelope>
+  </script>
+  <script>
+  $(function() {
+    var soapTemplate = $('#soap-template'), 
+        input = $('#input'),
+        output = $('#output');
+
+    $('#encrypt').on ('click', function (e) {
+      var soapBody = soapTemplate.html().replace(
+          new RegExp("\\$\\{[^}]+\\}", "i"), 
+          input.val()
+        );
+
+      soapBody = $.trim(soapBody);
+
+      $.ajax({
+        type: "POST",
+        url: "http://lta1soa.appspot.com/service.php/SimpleHash.Encode",
+        contentType: "text/xml",
+        data: soapBody,
+        dataType: "xml",
+        processData: false,
+        success: function (response) {
+          console.log(response);
+          output.val(response);
+        },
+        error: function() {
+          console.log("ERROR", arguments);
+        }
+      });
+    });
+
+  });
+  </script>
+</body>
+</html>

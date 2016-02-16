@@ -1,0 +1,15 @@
+{
+  "name": "phonegap",
+  "version": "1.0.0",
+  "description": "simple phonegap soap app",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "jquery": "^2.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Herrucules",
+  "license": "ISC"
+}
